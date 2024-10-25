@@ -17,3 +17,21 @@ export const navigationRoutes = [
     }
 ];
 
+export const footerNav = [
+    {   
+        name:'Description',
+        path:'/pokemon/:name'
+    },
+    {
+        name:"Evolution",
+        path:"/pokemon/:name/evolution"
+    },
+    {
+        name:"Catching",
+        path:"/pokemon/:name/catching"
+    },
+    {
+        name:"Capable Moves",
+        path:"/pokemon/:name/moves"
+    }
+]

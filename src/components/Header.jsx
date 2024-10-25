@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 
 function Header () {
   return (
-    <div className='w-screen h-[10vh] border-b border-zinc-400 flex justify-between items-center'>
+    <div className='w-screen h-[10vh] border-b border-zinc-400 flex justify-between items-center overflow-hidden'>
         <div className="h-16 w-16  border-r border-zinc-400 flex items-center justify-center">
-            <img className='w-12 p-1 ' src={pokeballIcon} alt="logo" />
+            <img className='w-12 ' src={pokeballIcon} alt="logo" />
         </div>
 
         <div className="">
@@ -24,7 +24,7 @@ function Header () {
                 }
             </ul>
         </div>
-        <div className="text-2xl h-16 w-16 p-1 flex justify-center items-center  text-white font-bold border-l border-zinc-400">
+        <div className="text-2xl h-16 w-16 flex justify-center items-center  text-white font-bold border-l border-zinc-400">
             <CiMenuBurger/>
         </div>
     </div>

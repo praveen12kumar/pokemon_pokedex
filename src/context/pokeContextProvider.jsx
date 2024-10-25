@@ -21,7 +21,7 @@ const PokeContextProvider = ({children}) => {
     const fetchAllPokemons = async () => {
         try {
             dispatch({type:"LOADING"})
-            const response = await axios.get(`${baseUrl}/pokemon?limit=20`);
+            const response = await axios.get(`${baseUrl}/pokemon?limit=18`);
             const data = response.data;
             dispatch({
                 type:"GET_ALL_POKEMONS", payload:data.results
@@ -30,7 +30,6 @@ const PokeContextProvider = ({children}) => {
             const allPokemons = [];
             for(const pokemon of data.results) {
                 const response = await axios.get(pokemon.url);
-                console.log("response", response.data)
                 allPokemons.push(response.data);
             }
             setAllPokemonData(allPokemons)
@@ -39,6 +38,19 @@ const PokeContextProvider = ({children}) => {
             console.log(error)
         }
     }
+
+    const getPokemon = async (name) => {
+        try {
+            dispatch({type:"LOADING"})
+            const response = await axios.get(`${baseUrl}/pokemon/${name}`);
+            dispatch({
+                type:"GET_POKEMON", payload:response.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
 
 
     useEffect(() => {
@@ -50,6 +62,7 @@ const PokeContextProvider = ({children}) => {
         <PokeContext.Provider value={{
            ...state,
            allPokemonData,
+           getPokemon
         }}>
             {children}
         </PokeContext.Provider>

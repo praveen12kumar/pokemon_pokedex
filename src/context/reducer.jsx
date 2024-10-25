@@ -4,7 +4,7 @@ export const reducer = (state, {type, payload}) => {
             return {...state, loading: true}
         }
         case "GET_POKEMON":{
-
+            return {...state, pokemon:payload, loading:false}
         }
         case "GET_ALL_POKEMONS":{
             return{...state, allPokemons:payload, loading:false}
