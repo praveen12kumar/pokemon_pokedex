@@ -15,5 +15,5 @@ export const navigationRoutes = [
         name:'About',
         path:'/about',
     }
+];
 
-]

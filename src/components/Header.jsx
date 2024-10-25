@@ -1,7 +1,7 @@
 import React from 'react'
 import pokeballIcon from '../assets/pokeballIcon.png';
 import { CiMenuBurger } from "react-icons/ci";
-import {navigationRoutes} from "./constant"
+import {navigationRoutes} from "../utils/constant"
 import { Link } from 'react-router-dom';
 
 function Header () {
