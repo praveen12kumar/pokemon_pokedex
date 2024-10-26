@@ -26,6 +26,11 @@ export const reducer = (state, {type, payload}) => {
             return {...state, locations:payload, loading:false}
         }
 
+        case "GET_EVALUATION_DATA":{
+            console.log("Payload", payload)
+            return {...state, evolutions:payload, loading:false}
+        }
+
         default:
             return state
         

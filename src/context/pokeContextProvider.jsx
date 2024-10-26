@@ -15,6 +15,7 @@ const PokeContextProvider = ({children}) => {
         loading:false,
         currentTab:"description",
         locations:{},
+        evolutions:{},
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -141,6 +142,35 @@ const PokeContextProvider = ({children}) => {
           console.error("Error fetching Pokémon type data:", error);
         }
       };
+
+    const getEvaluationData = async (name) => {
+        try {
+            const response = await axios.get(`${baseUrl}/pokemon-species/${name}`);
+            const evolutionUrl = response?.data?.evolution_chain?.url;
+            const evolutionResponse = await axios.get(evolutionUrl);
+
+            // Parse the evolution chain
+            const chain = evolutionResponse.data.chain;
+            const evolutionChain = [];
+            let current = chain;
+
+            // Traverse the evolution chain recursively
+            while (current) {
+            evolutionChain.push({
+              species: current.species.name,
+              evolves_to: current.evolves_to.map(evo => evo.species.name),
+            });
+            current = current.evolves_to[0];
+          }
+
+            dispatch({
+                type:"GET_EVALUATION_DATA", payload:evolutionChain
+            })
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
       
     const getLocationData = async (name) => {
         console.log("name", name);
@@ -182,6 +212,7 @@ const PokeContextProvider = ({children}) => {
            typeRelations,
            fetchTypeData,
            getLocationData,
+           getEvaluationData,
 
         }}>
             {children}

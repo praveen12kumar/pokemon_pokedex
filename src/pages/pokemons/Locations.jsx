@@ -5,17 +5,11 @@ import PokeContext from '../../context/pokeContext';
 import Footer from '../../components/Footer';
 function Locations(){
     const {name} = useParams();
-    
-    
     const {getLocationData, locations} = useContext(PokeContext);
-    console.log("locations", locations);
-    
+
     useEffect(()=>{
       getLocationData(name)
     },[name])
-
-    
-
 
   return (
     <>
@@ -26,9 +20,9 @@ function Locations(){
         <div className='flex flex-wrap gap-8 items-center justify-center'>
           {
             locations.map((location) => (
-              <div className='bg-slate-800 p-5 rounded-lg' key={location.name}>
-                <h3 className='text-2xl font-nunito font-semibold text-white'>{location.name}</h3>
-                <p className='text-lg font-nunito font-semibold text-white uppercase'>{location.location_area.name}</p>
+              <div className='bg-slate-800 p-5 rounded-lg' key={location?.location_area.name}>
+                <h3 className='text-2xl font-nunito font-semibold text-white'>{location?.name}</h3>
+                <p className='text-lg font-nunito font-semibold text-white uppercase'>{location?.location_area.name}</p>
               </div>
             ))
           }
