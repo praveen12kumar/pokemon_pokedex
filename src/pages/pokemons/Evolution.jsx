@@ -2,7 +2,7 @@ import React from 'react'
 
 function Evolution(){
   return (
-    <div>Evolution</div>
+    <div className='w-full h-[calc(100vh-20vh)] '>Evolution</div>
   )
 }
 

@@ -6,6 +6,10 @@ import Header from "./components/Header"
 import Home from "./pages/Home";
 import Search from "./pages/Search";
 import Description from "./pages/pokemons/Description";
+import SinglePokemon from "./pages/SinglePokemon";
+import Evolution from "./pages/pokemons/Evolution";
+import Locations from "./pages/pokemons/Locations";
+import CapableMoves from "./pages/pokemons/CapableMoves";
 function App() {
  
 
@@ -17,8 +21,13 @@ function App() {
           <Header/>
           <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path="/pokemon/:name" element={<Description/>}/>
+            <Route path="/search" element={<Search/>}/>
+            <Route path="/pokemon/:name/description" element={<Description/>}/>
+            <Route path="/pokemon/:name/evolution" element={<Evolution/>}/>
+            <Route path="/pokemon/:name/locations" element={<Locations/>}/>
+            <Route path="/pokemon/:name/moves" element={<CapableMoves/>}/>
           </Routes>
+          
         </div>
       </div>
     </>

@@ -4,34 +4,26 @@ export const navigationRoutes = [
         path:'/search',
     },
     {
-        name:'Compare',
-        path:'/compare',
-    },
-    {
         name:'Pokemon',
-        path:'/pokemon',
+        path:'/',
     },
-    {
-        name:'About',
-        path:'/about',
-    }
 ];
 
 export const footerNav = [
     {   
-        name:'Description',
-        path:'/pokemon/:name'
+        name:'description',
+        path:'/pokemon/:name/description'
     },
     {
-        name:"Evolution",
+        name:"evolution",
         path:"/pokemon/:name/evolution"
     },
     {
-        name:"Catching",
-        path:"/pokemon/:name/catching"
+        name:"catching",
+        path:"/pokemon/:name/locations"
     },
     {
-        name:"Capable Moves",
+        name:"capable Moves",
         path:"/pokemon/:name/moves"
     }
 ]

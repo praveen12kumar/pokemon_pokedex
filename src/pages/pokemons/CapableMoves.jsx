@@ -2,7 +2,7 @@ import React from 'react'
 
 function CapableMoves(){
   return (
-    <div>CapableMoves</div>
+    <div className='w-full h-[calc(100vh-20vh)] '>CapableMoves</div>
   )
 }
 

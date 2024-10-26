@@ -5,9 +5,7 @@ import PokeCard from '../components/PokeCard';
 
 function Home(){
   const {allPokemonData} = useContext(PokeContext);
-  
-  console.log(allPokemonData);
-  
+
     return (
     <>
         <div className=" main grid grid-cols-6 p-20  gap-16 z-20">

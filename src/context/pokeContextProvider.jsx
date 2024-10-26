@@ -9,14 +9,16 @@ const PokeContextProvider = ({children}) => {
     const initialState = {
         allPokemons:[],
         pokemon:{},
-        PokemonData:[],
-        searchResults:[],
-        compareList:[],
+        pokemonDatabase:[],
+        searchResults:{},
+        randomList:[],
         loading:false,
+        currentTab:"description"
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
     const [allPokemonData, setAllPokemonData] = useState([]);
+    const [search, setSearch] = useState("");
 
     const fetchAllPokemons = async () => {
         try {
@@ -50,11 +52,55 @@ const PokeContextProvider = ({children}) => {
             console.log(error)
         }
     }
-    
 
+    const getPokemonDatabase = async () => {
+        try {
+            dispatch({type:"LOADING"})
+            const response = await axios.get(`${baseUrl}/pokemon?limit=100000&offset=0`);
+            const data = response.data; 
+            dispatch({
+                type:"GET_ALL_POKEMONS_DATABASE", payload:data.results
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
+    const getRandomPokemon = async () => {
+        try{
+            dispatch({type:"LOADING"})
+           while(state.randomList.length < 10){
+                const randomIndex = Math.floor(Math.random() * 1302);
+                const response = await axios.get(`${baseUrl}/pokemon/${randomIndex}`);
+                dispatch({
+                    type:"GET_RANDOM_POKEMON", payload:response.data
+                })
+           }
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+
+    const getSearchedPokemon = async (searchItem) => {
+        
+        try {
+            dispatch({type:"LOADING"})
+            const response = await axios.get(`${baseUrl}/pokemon/${searchItem}`);
+            dispatch({
+                type:"GET_SEARCH", payload:response.data
+            })
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+
+ 
     useEffect(() => {
         fetchAllPokemons();
+        getPokemonDatabase();
+       
     },[])
 
 
@@ -62,7 +108,13 @@ const PokeContextProvider = ({children}) => {
         <PokeContext.Provider value={{
            ...state,
            allPokemonData,
-           getPokemon
+           getPokemon,
+           getRandomPokemon,
+           getSearchedPokemon,
+           dispatch,
+           search, 
+           setSearch,
+
         }}>
             {children}
         </PokeContext.Provider>

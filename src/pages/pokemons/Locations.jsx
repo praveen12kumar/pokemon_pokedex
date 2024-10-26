@@ -2,7 +2,7 @@ import React from 'react'
 
 function Locations(){
   return (
-    <div>Locations</div>
+    <div className='w-full h-[calc(100vh-20vh)] '>Locations</div>
   )
 }
 

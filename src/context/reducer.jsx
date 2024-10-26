@@ -9,14 +9,17 @@ export const reducer = (state, {type, payload}) => {
         case "GET_ALL_POKEMONS":{
             return{...state, allPokemons:payload, loading:false}
         }
-        case "GET_ALL_POKEMON_DATA":{
-
+        case "GET_ALL_POKEMONS_DATABASE":{
+            return {...state, pokemonDatabase:payload, loading:false}
         }
         case "GET_SEARCH":{
-
+            return {...state, searchResults:payload, loading:false}
         }
-        case "GET_POKEMON_DATABASE":{
-
+        case "GET_RANDOM_POKEMON":{
+            return {...state, randomList:[...state.randomList, payload], loading:false}
+        }
+        case "PAGE_DESCRIPTION":{
+            return {...state, currentTab:payload}
         }
 
         default:
