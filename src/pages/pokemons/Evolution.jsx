@@ -23,7 +23,7 @@ function Evolution(){
             {
               evolutions?.splice(0, 2).map((evo) => {
                 return(
-                  <h1 className='w-[15vw] h-[6vw] flex items-center justify-center uppercase  bg-green-700 text-xl rounded-lg font-nunito text-slate-100 tracking-wider'>{evo?.evolves_to[0]}</h1>
+                  <h1 className='w-[15vw] h-[6vw] flex items-center justify-center uppercase  bg-green-700 text-xl rounded-lg font-nunito text-slate-100 tracking-wider hover:scale-105 transition-all duration-300 ease-in'>{evo?.evolves_to[0]}</h1>
 
                 )
               })

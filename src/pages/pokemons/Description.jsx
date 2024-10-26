@@ -4,9 +4,10 @@ import { useParams } from "react-router-dom";
 import Button from "../../components/Button";
 import Image from "../../components/Image";
 import Footer from "../../components/Footer";
-
+import { useNavigate } from "react-router-dom";
 function Description() {
   const { name } = useParams();
+  const navigate = useNavigate();
 
   const { getPokemon, pokemon, fetchTypeData, typeRelations } =
     useContext(PokeContext);
@@ -37,7 +38,7 @@ function Description() {
                 );
               })}
             </h3>
-            <div className="absolute -bottom-5 -right-3">
+            <div className="absolute -bottom-5 -right-3" onClick={()=>navigate(`/pokemon/${pokemon?.name}/evolution`)}>
               <Button
                 text={"See next Evolution"}
                 styles={
