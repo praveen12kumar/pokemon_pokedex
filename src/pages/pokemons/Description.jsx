@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useEffect } from "react";
 import PokeContext from "../../context/pokeContext";
 import { useParams } from "react-router-dom";
 import Button from "../../components/Button";
 import Image from "../../components/Image";
+import Footer from "../../components/Footer";
 
 function Description() {
   const { name } = useParams();
@@ -15,12 +16,12 @@ function Description() {
     fetchTypeData(name);
   }, [name]);
 
-  console.log("typeRelations", typeRelations);
-  console.log(typeof typeRelations);
+  //console.log("pokemon", pokemon);
+  
 
   return (
     <>
-      <div className="w-full h-[calc(100vh-10vh)] flex justify-between px-16">
+      <div className="w-full h-[calc(100vh-20vh)] flex justify-between px-16">
         <div className="w-1/3 relative flex flex-col justify-evenly">
           <div className="w-2/3 flex flex-col bg-slate-800 p-5 relative">
             <h1 className=" text-3xl uppercase text-white font-nunito ">
@@ -30,7 +31,7 @@ function Description() {
               <span>Type: </span>
               {pokemon?.types?.map((t) => {
                 return (
-                  <p className="inline text-white font-nunito text-md ml-2">
+                  <p key={t?.type?.name} className="inline text-white font-nunito text-md ml-2">
                     {t?.type?.name}
                   </p>
                 );
@@ -127,23 +128,22 @@ function Description() {
            
             <p>
               <strong>Weak Against:</strong>{" "}
-              {typeRelations.double_damage_from.join(", ")}
+              {typeRelations?.double_damage_from?.join(", ")}
             </p>
             <p>
               <strong>Resistant To:</strong>{" "}
-              {typeRelations.half_damage_from.join(", ")}
+              {typeRelations?.half_damage_from?.join(", ")}
             </p>
-            <p>
-              <strong>Immune To:</strong>{" "}
-              {typeRelations.no_damage_from.join(", ")}
-            </p>
+            <p><strong>Immune To:</strong>{" "} 
+              {typeRelations?.half_damage_to?.join(", ")}</p>
             <p>
               <strong>Strong Against:</strong>{" "}
-              {typeRelations.double_damage_to.join(", ")}
+              {typeRelations?.double_damage_to?.join(", ")}
             </p>
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

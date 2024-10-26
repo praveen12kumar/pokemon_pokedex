@@ -22,6 +22,10 @@ export const reducer = (state, {type, payload}) => {
             return {...state, currentTab:payload}
         }
 
+        case "GET_LOCATION_DATA":{
+            return {...state, locations:payload, loading:false}
+        }
+
         default:
             return state
         

@@ -13,7 +13,8 @@ const PokeContextProvider = ({children}) => {
         searchResults:{},
         randomList:[],
         loading:false,
-        currentTab:"description"
+        currentTab:"description",
+        locations:{},
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -140,7 +141,25 @@ const PokeContextProvider = ({children}) => {
           console.error("Error fetching Pokémon type data:", error);
         }
       };
-  
+      
+    const getLocationData = async (name) => {
+        console.log("name", name);
+        
+        try {
+            const response = await axios.get(`${baseUrl}/pokemon/${name}`);
+            const data = response.data;
+            
+            const locate = await axios.get(data.location_area_encounters);
+            //console.log("locate",locate.data);
+
+            dispatch({
+                type:"GET_LOCATION_DATA", payload:locate.data
+            })
+            
+        } catch (error) {
+            
+        }
+    }
 
  
     useEffect(() => {
@@ -162,7 +181,7 @@ const PokeContextProvider = ({children}) => {
            setSearch,
            typeRelations,
            fetchTypeData,
-
+           getLocationData,
 
         }}>
             {children}

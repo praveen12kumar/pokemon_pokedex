@@ -10,20 +10,20 @@ export const navigationRoutes = [
 ];
 
 export const footerNav = [
-    {   
+    {    
         name:'description',
-        path:'/pokemon/:name/description'
+        path:'description'
     },
     {
         name:"evolution",
-        path:"/pokemon/:name/evolution"
+        path:"evolution"
     },
     {
         name:"catching",
-        path:"/pokemon/:name/locations"
+        path:"locations"
     },
     {
         name:"capable Moves",
-        path:"/pokemon/:name/moves"
+        path:"moves"
     }
 ]
