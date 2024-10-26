@@ -19,6 +19,7 @@ const PokeContextProvider = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [allPokemonData, setAllPokemonData] = useState([]);
     const [search, setSearch] = useState("");
+    const [typeRelations, setTypeRelations] = useState(null);
 
     const fetchAllPokemons = async () => {
         try {
@@ -96,6 +97,51 @@ const PokeContextProvider = ({children}) => {
         }
     }
 
+    const fetchTypeData = async (pokemonName) => {
+        console.log("pokemonName", pokemonName);
+        
+        try {
+          const pokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+          const types = pokemonResponse.data.types.map(typeInfo => typeInfo.type.name);
+  
+          const typeDataPromises = types.map(type =>
+            axios.get(`https://pokeapi.co/api/v2/type/${type}`)
+          );
+  
+          const typeResponses = await Promise.all(typeDataPromises);
+          const combinedRelations = {
+            double_damage_from: new Set(),
+            half_damage_from: new Set(),
+            no_damage_from: new Set(),
+            double_damage_to: new Set(),
+            half_damage_to: new Set(),
+            no_damage_to: new Set(),
+          };
+  
+          // Combine the relations for dual types
+          typeResponses.forEach(response => {
+            const relations = response.data.damage_relations;
+            Object.keys(relations).forEach(relationType => {
+              relations[relationType].forEach(relation => {
+                combinedRelations[relationType].add(relation.name);
+              });
+            });
+          });
+  
+          setTypeRelations({
+            double_damage_from: Array.from(combinedRelations.double_damage_from),
+            half_damage_from: Array.from(combinedRelations.half_damage_from),
+            no_damage_from: Array.from(combinedRelations.no_damage_from),
+            double_damage_to: Array.from(combinedRelations.double_damage_to),
+            half_damage_to: Array.from(combinedRelations.half_damage_to),
+            no_damage_to: Array.from(combinedRelations.no_damage_to),
+          });
+        } catch (error) {
+          console.error("Error fetching Pokémon type data:", error);
+        }
+      };
+  
+
  
     useEffect(() => {
         fetchAllPokemons();
@@ -114,6 +160,9 @@ const PokeContextProvider = ({children}) => {
            dispatch,
            search, 
            setSearch,
+           typeRelations,
+           fetchTypeData,
+
 
         }}>
             {children}
