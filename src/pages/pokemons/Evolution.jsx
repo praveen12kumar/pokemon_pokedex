@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import PokeContext from '../../context/pokeContext';
-
+import Loader from '../../components/Loader';
 import Footer from '../../components/Footer'
 function Evolution(){
   const {pokemon, getEvaluationData, evolutions, loading} = useContext(PokeContext);
@@ -18,7 +18,10 @@ function Evolution(){
 
   return (
     <>
-      <div className='w-full h-[calc(100vh-20vh)] p-10'>
+      {
+        loading ? <Loader/> : (
+          <>
+            <div className='w-full h-[calc(100vh-20vh)] p-10'>
         <h1 className='text-3xl font-nunito font-bold text-white text-center'>Evolution of {pokemon?.name}</h1>
         {
           evolutions?.length > 0 ? (
@@ -40,6 +43,10 @@ function Evolution(){
         }
       </div>
       <Footer/>
+          </>
+        )
+        
+        }
     </>
   )
 }

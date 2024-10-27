@@ -7,7 +7,7 @@ export const reducer = (state, {type, payload}) => {
             return {...state, pokemon:payload, loading:false}
         }
         case "GET_ALL_POKEMONS":{
-            return{...state, allPokemons:payload, loading:false}
+            return{...state, allPokemons:payload.results, next:payload.next}
         }
         case "GET_ALL_POKEMONS_DATABASE":{
             return {...state, pokemonDatabase:payload, loading:false}
@@ -16,7 +16,7 @@ export const reducer = (state, {type, payload}) => {
             return {...state, searchResults:payload, loading:false}
         }
         case "GET_RANDOM_POKEMON":{
-            return {...state, randomList:[...state.randomList, payload], loading:false}
+            return {...state, randomList:[...state.randomList, payload]}
         }
         case "PAGE_DESCRIPTION":{
             return {...state, currentTab:payload}
@@ -29,6 +29,15 @@ export const reducer = (state, {type, payload}) => {
         case "GET_EVALUATION_DATA":{
             console.log("Payload", payload)
             return {...state, evolutions:payload, loading:false}
+        }
+
+        case "NEXT":{
+            console.log("payload", payload)
+            return {...state, allPokemons:[...state.allPokemons, ...payload.results], next:payload.next, loading:false}
+        }
+
+        case "LOADING_OFF":{
+            return {...state, loading:false}
         }
 
         default:

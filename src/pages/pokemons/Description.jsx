@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import Image from "../../components/Image";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
 function Description() {
   const { name } = useParams();
   const navigate = useNavigate();
@@ -25,7 +26,10 @@ function Description() {
 
   return (
     <>
-      <div className="w-full h-[calc(100vh-20vh)] flex justify-between px-16">
+      {
+        loading ? <Loader/>: (
+          <>
+            <div className="w-full h-[calc(100vh-20vh)] flex justify-between px-16">
         <div className="w-1/3 relative flex flex-col justify-evenly">
           <div className="w-2/3 flex flex-col bg-slate-800 p-5 relative">
             <h1 className=" text-3xl uppercase text-white font-nunito ">
@@ -148,6 +152,9 @@ function Description() {
         </div>
       </div>
       <Footer/>
+          </>
+        )
+      }
     </>
   );
 }

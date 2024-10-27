@@ -16,6 +16,7 @@ const PokeContextProvider = ({children}) => {
         currentTab:"description",
         locations:{},
         evolutions:{},
+        next:""
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -28,8 +29,10 @@ const PokeContextProvider = ({children}) => {
             dispatch({type:"LOADING"})
             const response = await axios.get(`${baseUrl}/pokemon?limit=18`);
             const data = response.data;
+            console.log("data", data);
+            
             dispatch({
-                type:"GET_ALL_POKEMONS", payload:data.results
+                type:"GET_ALL_POKEMONS", payload:data
             })
 
             const allPokemons = [];
@@ -79,6 +82,7 @@ const PokeContextProvider = ({children}) => {
                     type:"GET_RANDOM_POKEMON", payload:response.data
                 })
            }
+           dispatch({type:"LOADING_OFF"})
         }
         catch(error){
             console.log(error)
@@ -190,6 +194,32 @@ const PokeContextProvider = ({children}) => {
         }
     }
 
+    const nextPage = async()=>{
+        try {
+            dispatch({type:"LOADING"});
+
+            const response = await axios.get(state.next);
+            
+            dispatch({
+                type:"NEXT", payload:response.data
+            })
+
+            const newPokemonData = [];
+            for(const pokemon of response.data.results) {
+                const res = await axios.get(pokemon.url);
+                newPokemonData.push(res.data);
+            }
+
+            setAllPokemonData([...allPokemonData, ...newPokemonData]);
+
+            dispatch({type:"LOADING_OFF"});
+
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+
  
     useEffect(() => {
         fetchAllPokemons();
@@ -212,6 +242,7 @@ const PokeContextProvider = ({children}) => {
            fetchTypeData,
            getLocationData,
            getEvaluationData,
+           nextPage 
 
         }}>
             {children}
