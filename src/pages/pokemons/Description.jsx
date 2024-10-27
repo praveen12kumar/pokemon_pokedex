@@ -9,8 +9,11 @@ function Description() {
   const { name } = useParams();
   const navigate = useNavigate();
 
-  const { getPokemon, pokemon, fetchTypeData, typeRelations } =
+  const { getPokemon, pokemon, fetchTypeData, typeRelations, loading } =
     useContext(PokeContext);
+
+    console.log("loading", loading);
+    
 
   useEffect(() => {
     getPokemon(name);
@@ -52,7 +55,7 @@ function Description() {
             {pokemon?.stats?.map((stat) => {
               return (
                 <div className="flex items-center justify-end gap-2 text-white">
-                  <h1 className="uppercase text-sm tracking-wider">
+                  <h1 className="uppercase  overflow-hidden text-nowrap text-sm tracking-wider">
                     {stat?.stat?.name}
                     {": "}
                   </h1>

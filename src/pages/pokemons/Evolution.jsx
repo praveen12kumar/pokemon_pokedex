@@ -4,8 +4,11 @@ import PokeContext from '../../context/pokeContext';
 
 import Footer from '../../components/Footer'
 function Evolution(){
-  const {pokemon, getEvaluationData, evolutions} = useContext(PokeContext);
+  const {pokemon, getEvaluationData, evolutions, loading} = useContext(PokeContext);
+
+  console.log("loading", loading);
   
+
   console.log("evolutions", evolutions);
 
   useEffect(()=>{

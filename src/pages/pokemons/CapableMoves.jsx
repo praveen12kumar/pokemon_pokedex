@@ -1,13 +1,18 @@
 import React, { useContext } from 'react'
 import PokeContext from '../../context/pokeContext';
 import Footer from '../../components/Footer';
+import Loader from '../../components/Loader';
 function CapableMoves(){
   
-  const {pokemon} = useContext(PokeContext);
+  const {pokemon, loading} = useContext(PokeContext);
+
+  console.log("loading", loading);
 
   return (
     <>
-      <div className='w-full min-h-[calc(100vh-10vh)]  flex flex-col gap-6 px-10 py-5 relative'>
+      {
+        loading ? <Loader/> : (
+          <div className='w-full min-h-[calc(100vh-10vh)]  flex flex-col gap-6 px-10 py-5 relative'>
         <div className="w-full flex flex-col gap-8">
           <h1 className='text-3xl font-nunito font-bold uppercase text-slate-100'>Abilites</h1>
           <div className=" w-full flex flex-wrap items-center justify-start gap-8">
@@ -22,7 +27,7 @@ function CapableMoves(){
         </div>
         <div className="w-full mb-20">
         <h1 className='text-3xl font-nunito font-bold uppercase text-slate-100'>Moves</h1>
-            <div className="flex gap-6 flex-wrap justify-start pt-10">
+            <div className="flex gap-6 flex-wrap  justify-center pt-10">
             {
               pokemon?.moves?.map((move)=>{
                 return(
@@ -35,7 +40,9 @@ function CapableMoves(){
         <div className=" w-full z-30 absolute left-0 bottom-0 bg-[#0F1520]">
         <Footer/>
         </div>
-      </div>
+        </div>
+        )
+      }
       
     </>
   )

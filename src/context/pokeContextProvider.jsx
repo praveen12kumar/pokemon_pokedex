@@ -99,9 +99,7 @@ const PokeContextProvider = ({children}) => {
         }
     }
 
-    const fetchTypeData = async (pokemonName) => {
-        console.log("pokemonName", pokemonName);
-        
+    const fetchTypeData = async (pokemonName) => { 
         try {
           const pokemonResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
           const types = pokemonResponse.data.types.map(typeInfo => typeInfo.type.name);
@@ -145,6 +143,7 @@ const PokeContextProvider = ({children}) => {
 
     const getEvaluationData = async (name) => {
         try {
+            dispatch({type:"LOADING"})
             const response = await axios.get(`${baseUrl}/pokemon-species/${name}`);
             const evolutionUrl = response?.data?.evolution_chain?.url;
             const evolutionResponse = await axios.get(evolutionUrl);
@@ -173,9 +172,9 @@ const PokeContextProvider = ({children}) => {
     }
       
     const getLocationData = async (name) => {
-        console.log("name", name);
-        
+    
         try {
+            dispatch({type:"LOADING"})
             const response = await axios.get(`${baseUrl}/pokemon/${name}`);
             const data = response.data;
             

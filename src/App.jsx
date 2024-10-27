@@ -1,12 +1,10 @@
 import {Routes, Route} from "react-router-dom";
 import "./app.css"
 import Background from './components/Background'
-import Footer from "./components/Footer"
 import Header from "./components/Header"
 import Home from "./pages/Home";
 import Search from "./pages/Search";
 import Description from "./pages/pokemons/Description";
-import SinglePokemon from "./pages/SinglePokemon";
 import Evolution from "./pages/pokemons/Evolution";
 import Locations from "./pages/pokemons/Locations";
 import CapableMoves from "./pages/pokemons/CapableMoves";
