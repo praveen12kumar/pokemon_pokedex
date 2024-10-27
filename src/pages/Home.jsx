@@ -19,7 +19,7 @@ function Home(){
         <>
           {
             loading ? <Loader/> : (
-              <div className=" main grid grid-cols-6 p-20  gap-16 z-20">
+              <div className="w-full h-[calc(100vh-10vh)] main grid grid-cols-6 p-20  gap-16 z-20">
             {
                 allPokemonData?.map((pokemon)=>{
                     return(
