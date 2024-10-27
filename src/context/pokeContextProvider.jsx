@@ -29,8 +29,6 @@ const PokeContextProvider = ({children}) => {
             dispatch({type:"LOADING"})
             const response = await axios.get(`${baseUrl}/pokemon?limit=18`);
             const data = response.data;
-            console.log("data", data);
-            
             dispatch({
                 type:"GET_ALL_POKEMONS", payload:data
             })
@@ -82,7 +80,7 @@ const PokeContextProvider = ({children}) => {
                     type:"GET_RANDOM_POKEMON", payload:response.data
                 })
            }
-           dispatch({type:"LOADING_OFF"})
+          
         }
         catch(error){
             console.log(error)

@@ -16,7 +16,7 @@ export const reducer = (state, {type, payload}) => {
             return {...state, searchResults:payload, loading:false}
         }
         case "GET_RANDOM_POKEMON":{
-            return {...state, randomList:[...state.randomList, payload]}
+            return {...state, randomList:[...state.randomList, payload], loading:false}
         }
         case "PAGE_DESCRIPTION":{
             return {...state, currentTab:payload}
