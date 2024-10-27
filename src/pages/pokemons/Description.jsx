@@ -58,7 +58,7 @@ function Description() {
           <div className="w-2/3 flex flex-col  gap-1">
             {pokemon?.stats?.map((stat) => {
               return (
-                <div className="flex items-center justify-end gap-2 text-white">
+                <div className="flex items-center justify-end gap-2 text-white" key={stat?.stat?.name}>
                   <h1 className="uppercase  overflow-hidden text-nowrap text-sm tracking-wider">
                     {stat?.stat?.name}
                     {": "}

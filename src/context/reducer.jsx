@@ -40,6 +40,10 @@ export const reducer = (state, {type, payload}) => {
             return {...state, loading:false}
         }
 
+        case "CLEAR_SEARCH":{
+            return {...state, searchResults:[]}
+        }
+
         default:
             return state
         

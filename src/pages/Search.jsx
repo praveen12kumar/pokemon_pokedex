@@ -14,9 +14,9 @@ function Search() {
     searchResults,
     getSearchedPokemon,
     getRandomPokemon,
-    randomList,
     pokemonDatabase,
     loading,
+    dispatch,
   } = useContext(PokeContext);
 
   const handleSearch = (e) => {
@@ -32,9 +32,11 @@ function Search() {
     setSearch("");
   };
 
-  useEffect(() => {
-    getRandomPokemon();
-  }, []);
+  // useEffect(() => {
+  //   if(searchResults) {
+      
+  //   }
+  // }, [searchResults]);
 
   return (
     <>
@@ -72,11 +74,9 @@ function Search() {
             )}
 
             <div className="w-full  flex flex-wrap justify-center gap-16">
-              {searchResults && Object.keys(searchResults).length > 0 ? (
+              {searchResults && Object.keys(searchResults).length > 0 && 
                 <PokeCard data={searchResults} />
-              ) : (
-                randomList.map((item) => <PokeCard key={item.id} data={item} />)
-              )}
+               }
             </div>
           </div>
         </>
