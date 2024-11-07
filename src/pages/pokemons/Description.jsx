@@ -31,7 +31,7 @@ function Description() {
         loading ? <Loader/>: (
           <>
       <div className="w-[95vw] mx-auto h-[calc(100vh-10vh)] flex justify-between px-10">
-        <div className="w-1/3 relative flex flex-col justify-evenly ">
+        <div className="w-1/3 relative flex flex-col justify-around ">
           <div className="w-2/3 flex flex-col bg-slate-800 p-5 relative">
             <h1 className=" text-3xl uppercase text-white font-nunito ">
               {pokemon.name}
@@ -87,7 +87,7 @@ function Description() {
             </div>
           </div>
         </div>
-        <div className="w-1/3 relative flex flex-col justify-evenly">
+        <div className="w-1/3 relative flex flex-col justify-around">
           <div className="bg-slate-800 p-5">
             <div className="">
               <h1 className="text-md uppercase inline text-white font-nunito">
