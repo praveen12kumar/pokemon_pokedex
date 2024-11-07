@@ -6,13 +6,14 @@ import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
 function Locations() {
   const { name } = useParams();
-  const { getLocationData, locations, loading } = useContext(PokeContext);
+  const { getLocationData, locations, loading, setCurrentTab } = useContext(PokeContext);
 
-  console.log("loading", loading);
+  
   
 
   useEffect(() => {
     getLocationData(name);
+    setCurrentTab("location");
   }, [name]);
 
   return (
@@ -21,13 +22,13 @@ function Locations() {
         <Loader />
       ) : (
         <>
-          <div className="w-full min-h-[calc(100vh-10vh)] ">
+          <div className="w-[95vw] mx-auto  min-h-[calc(100vh-10vh)]  flex  justify-center gap-6 relative">
             <div className="p-16">
               <h2 className="text-3xl font-nunito font-semibold text-white text-center p-5">
                 Location Areas for {name}
               </h2>
               {locations.length > 0 ? (
-                <div className="flex flex-wrap gap-8 items-center justify-center overflow-auto">
+                <div className="flex flex-wrap gap-8 items-center justify-start overflow-auto">
                   {locations.map((location) => (
                     <div
                       className="bg-slate-800 p-5 rounded-lg"

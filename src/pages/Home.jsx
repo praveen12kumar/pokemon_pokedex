@@ -19,7 +19,7 @@ function Home(){
         <>
           {
             loading ? <Loader/> : (
-              <div className="w-full min-h-[calc(100vh-10vh)] main grid grid-cols-6 p-20  gap-16 z-20">
+              <div className="max-w-[95vw] mx-auto min-h-[calc(100vh-10vh)] main grid grid-cols-6 p-10  gap-16 z-20">
             {
                 allPokemonData?.map((pokemon)=>{
                     return(
@@ -31,7 +31,7 @@ function Home(){
             )
           }
         </>
-        <div className="w-[100%] h-[10vh] mb-10 flex justify-center items-center">
+        <div className="max-w-full h-[10vh] mb-10 flex justify-center items-center">
             <Button
               text={"Load More"}
               styles="text-white border border-slate-300 font-nunito px-4 py-2 font-semibold rounded-md cursor-pointer "

@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 function Header () {
   return (
-    <div className='w-full h-[10vh] border-b border-zinc-400 flex justify-between items-center overflow-hidden'>
-        <div className="pl-10 border-r border-zinc-400 flex items-center justify-center">
+    <div className='w-[95vw] mx-auto h-[10vh] flex justify-between items-center '>
+        <div className="pl-10  flex items-center justify-center">
             <img className='w-12 mr-3' src={pokeballIcon} alt="logo" />
         </div>
 
@@ -24,8 +24,8 @@ function Header () {
                 }
             </ul>
         </div>
-        <div className="text-2xl pr-10 h-16 flex justify-center items-center  text-white font-bold border-l border-zinc-400">
-            <CiMenuBurger className='bg-slate-800 ml-4 '/>
+        <div className="text-2xl pr-10 h-16 flex justify-center items-center  text-white font-bold ">
+            <CiMenuBurger className='ml-4 '/>
         </div>
     </div>
   )

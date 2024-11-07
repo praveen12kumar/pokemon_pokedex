@@ -1,18 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import PokeContext from '../../context/pokeContext';
 import Footer from '../../components/Footer';
 import Loader from '../../components/Loader';
 function CapableMoves(){
   
-  const {pokemon, loading} = useContext(PokeContext);
+  const {pokemon, loading, setCurrentTab} = useContext(PokeContext);
 
-  console.log("loading", loading);
+  useEffect(()=>{
+    setCurrentTab("moves");
+  },[]);
+
+
 
   return (
     <>
       {
         loading ? <Loader/> : (
-          <div className='w-full min-h-[calc(100vh-10vh)]  flex flex-col gap-6 px-10 py-5 relative'>
+          <div className='w-full mx-auto  min-h-[calc(100vh-10vh)]  flex flex-col gap-6 px-10 py-5 relative'>
         <div className="w-full flex flex-col gap-8">
           <h1 className='text-3xl font-nunito font-bold uppercase text-slate-100'>Abilites</h1>
           <div className=" w-full flex flex-wrap items-center justify-start gap-8">

@@ -19,11 +19,11 @@ export const footerNav = [
         path:"evolution"
     },
     {
-        name:"catching",
+        name:"location",
         path:"locations"
     },
     {
-        name:"capable Moves",
+        name:"moves",
         path:"moves"
     }
 ]

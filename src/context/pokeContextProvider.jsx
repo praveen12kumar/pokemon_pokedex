@@ -13,14 +13,14 @@ const PokeContextProvider = ({children}) => {
         searchResults:{},
         randomList:[],
         loading:false,
-        currentTab:"description",
         locations:{},
         evolutions:{},
         next:""
     }
-
+    
     const [state, dispatch] = useReducer(reducer, initialState);
     const [allPokemonData, setAllPokemonData] = useState([]);
+    const [currentTab, setCurrentTab] = useState("description");
     const [search, setSearch] = useState("");
     const [typeRelations, setTypeRelations] = useState(null);
 
@@ -240,7 +240,9 @@ const PokeContextProvider = ({children}) => {
            fetchTypeData,
            getLocationData,
            getEvaluationData,
-           nextPage 
+           nextPage,
+           currentTab,
+           setCurrentTab, 
 
         }}>
             {children}

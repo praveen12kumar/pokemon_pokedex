@@ -27,12 +27,11 @@ export const reducer = (state, {type, payload}) => {
         }
 
         case "GET_EVALUATION_DATA":{
-            console.log("Payload", payload)
             return {...state, evolutions:payload, loading:false}
         }
 
         case "NEXT":{
-            console.log("payload", payload)
+           
             return {...state, allPokemons:[...state.allPokemons, ...payload.results], next:payload.next, loading:false}
         }
 

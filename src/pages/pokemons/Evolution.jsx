@@ -4,15 +4,11 @@ import PokeContext from '../../context/pokeContext';
 import Loader from '../../components/Loader';
 import Footer from '../../components/Footer'
 function Evolution(){
-  const {pokemon, getEvaluationData, evolutions, loading} = useContext(PokeContext);
-
-  console.log("loading", loading);
-  
-
-  console.log("evolutions", evolutions);
+  const {pokemon, getEvaluationData, evolutions, loading, setCurrentTab} = useContext(PokeContext);
 
   useEffect(()=>{
     getEvaluationData(pokemon?.name);
+    setCurrentTab("evolution");
   },[pokemon?.name])
 
 
@@ -21,7 +17,7 @@ function Evolution(){
       {
         loading ? <Loader/> : (
           <>
-            <div className='w-full h-[calc(100vh-20vh)] p-10'>
+        <div className='max-w-7xl mx-auto h-[calc(100vh-10vh)] p-10'>
         <h1 className='text-3xl font-nunito font-bold text-white text-center'>Evolution of {pokemon?.name}</h1>
         {
           evolutions?.length > 0 ? (
@@ -42,7 +38,10 @@ function Evolution(){
           )
         }
       </div>
-      <Footer/>
+      <div className=" w-full z-30 absolute left-0 bottom-0 bg-[#0F1520]">
+        <Footer/>
+        </div>
+      
           </>
         )
         

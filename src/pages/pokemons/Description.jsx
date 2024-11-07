@@ -10,15 +10,16 @@ function Description() {
   const { name } = useParams();
   const navigate = useNavigate();
 
-  const { getPokemon, pokemon, fetchTypeData, typeRelations, loading } =
+  const { getPokemon, pokemon, fetchTypeData, typeRelations, loading, setCurrentTab } =
     useContext(PokeContext);
 
-    console.log("loading", loading);
+    
     
 
   useEffect(() => {
     getPokemon(name);
     fetchTypeData(name);
+    setCurrentTab("description");
   }, [name]);
 
   //console.log("pokemon", pokemon);
@@ -29,8 +30,8 @@ function Description() {
       {
         loading ? <Loader/>: (
           <>
-            <div className="w-full h-[calc(100vh-20vh)] flex justify-between px-16">
-        <div className="w-1/3 relative flex flex-col justify-evenly">
+      <div className="w-[95vw] mx-auto h-[calc(100vh-10vh)] flex justify-between px-10">
+        <div className="w-1/3 relative flex flex-col justify-evenly ">
           <div className="w-2/3 flex flex-col bg-slate-800 p-5 relative">
             <h1 className=" text-3xl uppercase text-white font-nunito ">
               {pokemon.name}
@@ -93,9 +94,9 @@ function Description() {
                 Types:
               </h1>
               {pokemon?.types
-                ?.map((type) => {
+                ?.map((type, index) => {
                   return (
-                    <p className="inline bg-slate-700 px-2 py-1 rounded-md text-white font-nunito text-md ml-2">
+                    <p key={index} className="inline bg-slate-700 px-2 py-1 rounded-md text-white font-nunito text-md ml-2">
                       {type?.type?.name}
                     </p>
                   );
@@ -150,8 +151,11 @@ function Description() {
             </p>
           </div>
         </div>
+        <div className=" w-full z-30 absolute left-0 bottom-0 bg-[#0F1520]">
+        <Footer/>
+        </div>
       </div>
-      <Footer/>
+     
           </>
         )
       }
