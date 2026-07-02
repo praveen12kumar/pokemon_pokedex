@@ -4,6 +4,8 @@ import Background from './components/Background'
 import Header from "./components/Header"
 import Home from "./pages/Home";
 import Search from "./pages/Search";
+import Compare from "./pages/Compare";
+import Team from "./pages/Team";
 import Description from "./pages/pokemons/Description";
 import Evolution from "./pages/pokemons/Evolution";
 import Locations from "./pages/pokemons/Locations";
@@ -20,6 +22,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>}/>
             <Route path="/search" element={<Search/>}/>
+            <Route path="/compare" element={<Compare/>}/>
+            <Route path="/team" element={<Team/>}/>
             <Route path="/pokemon/:name/description" element={<Description/>}/>
             <Route path="/pokemon/:name/evolution" element={<Evolution/>}/>
             <Route path="/pokemon/:name/locations" element={<Locations/>}/>

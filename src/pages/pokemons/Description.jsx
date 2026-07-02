@@ -6,6 +6,7 @@ import Image from "../../components/Image";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
+import ErrorMessage from "../../components/ErrorMessage";
 import { IoVolumeHighOutline } from "react-icons/io5";
 import { GiSparkles } from "react-icons/gi";
 function Description() {
@@ -13,13 +14,19 @@ function Description() {
   const navigate = useNavigate();
   const [isShiny, setIsShiny] = useState(false);
 
-  const { getPokemon, pokemon, fetchTypeData, typeRelations, loading, setCurrentTab, species, getSpecies } =
+  const { getPokemon, pokemon, fetchTypeData, typeRelations, loading, error, setCurrentTab, species, getSpecies } =
     useContext(PokeContext);
 
-  useEffect(() => {
-    getPokemon(name);
+  const loadData = async () => {
     fetchTypeData(name);
-    getSpecies(name);
+    const data = await getPokemon(name);
+    if (data?.species?.name) {
+      getSpecies(data.species.name);
+    }
+  }
+
+  useEffect(() => {
+    loadData();
     setCurrentTab("description");
     setIsShiny(false);
   }, [name]);
@@ -31,9 +38,17 @@ function Description() {
     }
   };
 
+  // dream_world artwork only exists for base species, not alternate forms
+  // (mega/gmax/regional), so it can't be the primary source once the form
+  // switcher is in play. official-artwork and home cover every form.
   const displayImage = isShiny
-    ? pokemon?.sprites?.other?.home?.front_shiny || pokemon?.sprites?.front_shiny
-    : pokemon?.sprites?.other?.dream_world?.front_default;
+    ? pokemon?.sprites?.other?.["official-artwork"]?.front_shiny
+      || pokemon?.sprites?.other?.home?.front_shiny
+      || pokemon?.sprites?.front_shiny
+    : pokemon?.sprites?.other?.["official-artwork"]?.front_default
+      || pokemon?.sprites?.other?.home?.front_default
+      || pokemon?.sprites?.other?.dream_world?.front_default
+      || pokemon?.sprites?.front_default;
 
   const flavorText = species?.flavor_text_entries
     ?.find((entry) => entry.language.name === "en")
@@ -47,6 +62,7 @@ function Description() {
   return (
     <>
       {
+        error ? <ErrorMessage message={error} onRetry={loadData}/> :
         loading ? <Loader/>: (
           <>
       <div className="relative w-[95vw] mx-auto min-h-[calc(100vh-10vh)] px-10 pb-24">
@@ -120,6 +136,24 @@ function Description() {
             <GiSparkles className={isShiny ? "text-yellow-400" : ""} />
             {isShiny ? "View Normal" : "View Shiny"}
           </button>
+
+          {species?.varieties?.length > 1 && (
+            <div className="flex flex-wrap gap-2 justify-center max-w-[300px]">
+              {species.varieties.map((variety) => (
+                <button
+                  key={variety.pokemon.name}
+                  onClick={() => navigate(`/pokemon/${variety.pokemon.name}/description`)}
+                  className={`text-[11px] uppercase px-3 py-1 rounded-md font-nunito border cursor-pointer ${
+                    variety.pokemon.name === pokemon.name
+                      ? "bg-green-600 border-green-600 text-white"
+                      : "border-slate-300 text-white hover:bg-slate-700"
+                  }`}
+                >
+                  {variety.pokemon.name.replace(`${species.name}-`, "") || variety.pokemon.name}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         <div className="w-1/3 relative flex flex-col justify-around">
           <div className="bg-slate-800 p-5">

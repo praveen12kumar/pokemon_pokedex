@@ -4,12 +4,13 @@ import { useContext } from "react";
 import PokeContext from "../../context/pokeContext";
 import Footer from "../../components/Footer";
 import Loader from "../../components/Loader";
+import ErrorMessage from "../../components/ErrorMessage";
 function Locations() {
   const { name } = useParams();
-  const { getLocationData, locations, loading, setCurrentTab } = useContext(PokeContext);
+  const { getLocationData, locations, loading, error, setCurrentTab } = useContext(PokeContext);
 
-  
-  
+
+
 
   useEffect(() => {
     getLocationData(name);
@@ -18,7 +19,9 @@ function Locations() {
 
   return (
     <>
-      {loading ? (
+      {error ? (
+        <ErrorMessage message={error} onRetry={() => getLocationData(name)} />
+      ) : loading ? (
         <Loader />
       ) : (
         <>

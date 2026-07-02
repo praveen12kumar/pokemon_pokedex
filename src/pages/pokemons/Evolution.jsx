@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { useContext } from 'react';
 import PokeContext from '../../context/pokeContext';
 import Loader from '../../components/Loader';
+import ErrorMessage from '../../components/ErrorMessage';
 import Footer from '../../components/Footer'
 function Evolution(){
-  const {pokemon, getEvaluationData, evolutions, loading, setCurrentTab} = useContext(PokeContext);
+  const {pokemon, getEvaluationData, evolutions, loading, error, setCurrentTab} = useContext(PokeContext);
 
   useEffect(()=>{
     getEvaluationData(pokemon?.name);
@@ -15,6 +16,7 @@ function Evolution(){
   return (
     <>
       {
+        error ? <ErrorMessage message={error} onRetry={() => getEvaluationData(pokemon?.name)}/> :
         loading ? <Loader/> : (
           <div className='relative'>
         <div className='max-w-7xl mx-auto h-[calc(100vh-10vh)] p-10'>
