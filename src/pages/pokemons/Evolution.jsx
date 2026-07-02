@@ -16,7 +16,7 @@ function Evolution(){
     <>
       {
         loading ? <Loader/> : (
-          <>
+          <div className='relative'>
         <div className='max-w-7xl mx-auto h-[calc(100vh-10vh)] p-10'>
         <h1 className='text-3xl font-nunito font-bold text-white text-center'>Evolution of {pokemon?.name}</h1>
         {
@@ -41,9 +41,8 @@ function Evolution(){
       <div className=" w-full z-30 absolute left-0 bottom-0 bg-[#0F1520]">
         <Footer/>
         </div>
-      
-          </>
-        )
+      </div>
+          )
         
         }
     </>

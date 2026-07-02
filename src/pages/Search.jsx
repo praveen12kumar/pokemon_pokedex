@@ -44,7 +44,7 @@ function Search() {
         <Loader />
       ) : (
         <>
-          <div className="w-screen min-h-[calc(100vh-10vh)] flex flex-col relative">
+          <div className="w-full min-h-[calc(100vh-10vh)] flex flex-col relative">
             <div className="w-full flex justify-center">
               <Input
                 handleSearch={handleSearch}

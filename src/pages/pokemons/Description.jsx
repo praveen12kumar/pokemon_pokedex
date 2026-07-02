@@ -30,7 +30,7 @@ function Description() {
       {
         loading ? <Loader/>: (
           <>
-      <div className="w-[95vw] mx-auto h-[calc(100vh-10vh)] flex justify-between px-10">
+      <div className="relative w-[95vw] mx-auto min-h-[calc(100vh-10vh)] flex justify-between px-10">
         <div className="w-1/3 relative flex flex-col justify-around ">
           <div className="w-2/3 flex flex-col bg-slate-800 p-5 relative">
             <h1 className=" text-3xl uppercase text-white font-nunito ">
@@ -77,8 +77,8 @@ function Description() {
           </div>
         </div>
         <div className="w-1/3 flex justify-center items-center">
-          <div className="w-[400px] h-[400px] rounded-full border-4 border-green-600 p-5">
-            <div className="w-[350px] h-[350px] rounded-full border-2 border-green-600">
+          <div className="w-full max-w-[400px] aspect-square rounded-full border-4 border-green-600 p-5">
+            <div className="w-full h-full rounded-full border-2 border-green-600">
               <Image
                 src={pokemon?.sprites?.other?.dream_world?.front_default}
                 alt={pokemon?.name}

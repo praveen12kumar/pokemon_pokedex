@@ -15,7 +15,7 @@ function App() {
     <>
       
       <Background/>
-        <div className="w-[98vw] mx-auto h-auto z-10 bg-[rgb(2,8,20)]/95 backdrop-blur-md absolute top-0 left-4 flex flex-col justify-between ">
+        <div className="w-[98vw] mx-auto h-auto z-10 bg-[rgb(2,8,20)]/95 backdrop-blur-md absolute top-0 left-0 right-0 flex flex-col justify-between ">
           <Header/>
           <Routes>
             <Route path="/" element={<Home/>}/>

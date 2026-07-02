@@ -8,7 +8,7 @@ function Footer () {
   const { name } = useParams();
  
   return (
-    <div className='w-[98vw] px-10 mx-auto h-[10vh] flex justify-between items-center border-t border-zinc-400'>
+    <div className='w-full px-10 mx-auto h-[10vh] flex justify-between items-center border-t border-zinc-400'>
       {
         footerNav?.map((nav) => {
           return (
