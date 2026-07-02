@@ -2,9 +2,16 @@ import React from 'react'
 import pokeballIcon from '../assets/pokeballIcon.png';
 import { CiMenuBurger } from "react-icons/ci";
 import {navigationRoutes} from "../utils/constant"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Header () {
+    const navigate = useNavigate();
+
+    const handleSurpriseMe = () => {
+        const randomId = Math.floor(Math.random() * 1302) + 1;
+        navigate(`/pokemon/${randomId}/description`);
+    }
+
   return (
     <div className='w-[95vw] mx-auto h-[10vh] flex justify-between items-center '>
         <div className="pl-10  flex items-center justify-center">
@@ -22,6 +29,12 @@ function Header () {
                         )
                     })
                 }
+                <li
+                    onClick={handleSurpriseMe}
+                    className='text-sm text-white uppercase tracking-wider cursor-pointer'
+                >
+                    Surprise Me
+                </li>
             </ul>
         </div>
         <div className="text-2xl pr-10 h-16 flex justify-center items-center  text-white font-bold ">

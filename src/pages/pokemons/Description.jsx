@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PokeContext from "../../context/pokeContext";
 import { useParams } from "react-router-dom";
 import Button from "../../components/Button";
@@ -6,35 +6,62 @@ import Image from "../../components/Image";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
+import { IoVolumeHighOutline } from "react-icons/io5";
+import { GiSparkles } from "react-icons/gi";
 function Description() {
   const { name } = useParams();
   const navigate = useNavigate();
+  const [isShiny, setIsShiny] = useState(false);
 
-  const { getPokemon, pokemon, fetchTypeData, typeRelations, loading, setCurrentTab } =
+  const { getPokemon, pokemon, fetchTypeData, typeRelations, loading, setCurrentTab, species, getSpecies } =
     useContext(PokeContext);
-
-    
-    
 
   useEffect(() => {
     getPokemon(name);
     fetchTypeData(name);
+    getSpecies(name);
     setCurrentTab("description");
+    setIsShiny(false);
   }, [name]);
 
+  const handlePlayCry = () => {
+    const cryUrl = pokemon?.cries?.latest;
+    if (cryUrl) {
+      new Audio(cryUrl).play();
+    }
+  };
+
+  const displayImage = isShiny
+    ? pokemon?.sprites?.other?.home?.front_shiny || pokemon?.sprites?.front_shiny
+    : pokemon?.sprites?.other?.dream_world?.front_default;
+
+  const flavorText = species?.flavor_text_entries
+    ?.find((entry) => entry.language.name === "en")
+    ?.flavor_text?.replace(/[\f\n\r]/g, " ");
+
+  const genus = species?.genera?.find((g) => g.language.name === "en")?.genus;
+
   //console.log("pokemon", pokemon);
-  
+
 
   return (
     <>
       {
         loading ? <Loader/>: (
           <>
-      <div className="relative w-[95vw] mx-auto min-h-[calc(100vh-10vh)] flex justify-between px-10">
+      <div className="relative w-[95vw] mx-auto min-h-[calc(100vh-10vh)] px-10 pb-24">
+        <div className="flex justify-between">
         <div className="w-1/3 relative flex flex-col justify-around ">
           <div className="w-2/3 flex flex-col bg-slate-800 p-5 relative">
-            <h1 className=" text-3xl uppercase text-white font-nunito ">
+            <h1 className=" text-3xl uppercase text-white font-nunito flex items-center gap-3">
               {pokemon.name}
+              {pokemon?.cries?.latest && (
+                <IoVolumeHighOutline
+                  onClick={handlePlayCry}
+                  title="Play cry"
+                  className="text-xl text-green-500 cursor-pointer hover:scale-110 transition-all duration-200 ease-in"
+                />
+              )}
             </h1>
             <h3 className="text-md uppercase text-white font-nunito">
               <span>Type: </span>
@@ -76,16 +103,23 @@ function Description() {
             })}
           </div>
         </div>
-        <div className="w-1/3 flex justify-center items-center">
+        <div className="w-1/3 flex flex-col justify-center items-center gap-4">
           <div className="w-full max-w-[400px] aspect-square rounded-full border-4 border-green-600 p-5">
             <div className="w-full h-full rounded-full border-2 border-green-600">
               <Image
-                src={pokemon?.sprites?.other?.dream_world?.front_default}
+                src={displayImage}
                 alt={pokemon?.name}
                 styles="w-full h-full p-6"
               />
             </div>
           </div>
+          <button
+            onClick={() => setIsShiny((prev) => !prev)}
+            className="flex items-center gap-2 text-sm text-white uppercase font-nunito border border-slate-200 px-4 py-1 font-semibold rounded-md cursor-pointer hover:scale-105 transition-all duration-200 ease-in"
+          >
+            <GiSparkles className={isShiny ? "text-yellow-400" : ""} />
+            {isShiny ? "View Normal" : "View Shiny"}
+          </button>
         </div>
         <div className="w-1/3 relative flex flex-col justify-around">
           <div className="bg-slate-800 p-5">
@@ -151,11 +185,43 @@ function Description() {
             </p>
           </div>
         </div>
+        </div>
+
+        {(flavorText || genus || species?.habitat || species?.egg_groups?.length > 0) && (
+          <div className="w-full mt-10 bg-slate-800 p-5 text-white font-nunito">
+            <h1 className="text-md uppercase font-bold mb-2">About</h1>
+            {flavorText && <p className="text-sm leading-relaxed">{flavorText}</p>}
+            <div className="flex flex-wrap gap-x-8 gap-y-1 mt-3 text-sm">
+              {genus && (
+                <p>
+                  <strong>Genus:</strong> {genus}
+                </p>
+              )}
+              {species?.habitat?.name && (
+                <p>
+                  <strong>Habitat:</strong> {species.habitat.name}
+                </p>
+              )}
+              {species?.capture_rate !== undefined && (
+                <p>
+                  <strong>Capture Rate:</strong> {species.capture_rate}
+                </p>
+              )}
+              {species?.egg_groups?.length > 0 && (
+                <p>
+                  <strong>Egg Groups:</strong>{" "}
+                  {species.egg_groups.map((g) => g.name).join(", ")}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+
         <div className=" w-full z-30 absolute left-0 bottom-0 bg-[#0F1520]">
         <Footer/>
         </div>
       </div>
-     
+
           </>
         )
       }

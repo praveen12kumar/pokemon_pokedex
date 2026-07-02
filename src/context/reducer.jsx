@@ -30,6 +30,10 @@ export const reducer = (state, {type, payload}) => {
             return {...state, evolutions:payload, loading:false}
         }
 
+        case "GET_SPECIES":{
+            return {...state, species:payload, loading:false}
+        }
+
         case "NEXT":{
            
             return {...state, allPokemons:[...state.allPokemons, ...payload.results], next:payload.next, loading:false}

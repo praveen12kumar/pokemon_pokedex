@@ -15,6 +15,7 @@ const PokeContextProvider = ({children}) => {
         loading:false,
         locations:{},
         evolutions:{},
+        species:{},
         next:""
     }
     
@@ -173,6 +174,18 @@ const PokeContextProvider = ({children}) => {
         }
     }
       
+    const getSpecies = async (name) => {
+        try {
+            dispatch({type:"LOADING"})
+            const response = await axios.get(`${baseUrl}/pokemon-species/${name}`);
+            dispatch({
+                type:"GET_SPECIES", payload:response.data
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const getLocationData = async (name) => {
     
         try {
@@ -240,6 +253,7 @@ const PokeContextProvider = ({children}) => {
            fetchTypeData,
            getLocationData,
            getEvaluationData,
+           getSpecies,
            nextPage,
            currentTab,
            setCurrentTab, 
